@@ -1,4 +1,3 @@
-const request = require('request');
 const curl = require("curl");
 const htmlToJson = require('html-to-json') 
 
@@ -44,7 +43,7 @@ module.exports = (app) => {
                     }]),
                 });
                 promise.done((result) => {
-                    console.log(result.sections)
+                   // console.log(result.sections)
                     res.send(result.sections[0])
                 })
             }

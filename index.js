@@ -12,6 +12,7 @@ app.get('/', (req, res) => {
 require('./routes/findManga')(app)
 require('./routes/mangaDetail')(app)
 require('./routes/capList')(app)
+require('./routes/mangaImages')(app)
 
 app.listen(3001, () => {
     console.log('running');

@@ -1,4 +1,3 @@
-const request = require('request');
 const htmlToJson = require('html-to-json')
 const curl = require("curl");
 module.exports = (app) => {
@@ -28,6 +27,5 @@ module.exports = (app) => {
                 console.log("error while fetching url");
             }
         });
-     });
-
+     }); 
 }
