@@ -4,22 +4,33 @@ const request = require('request')
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 module.exports = (app) => {
-    getAllImages = (images, res, indice, imagesResponse) => {
-        //console.log("http://es.ninemanga.com" + images[indice].url)
-        JSDOM.fromURL("http://es.ninemanga.com" + images[indice].url, {}).then(dom => {
+    // getAllImages = (images, res, indice, imagesResponse) => {
+    //     //console.log("http://es.ninemanga.com" + images[indice].url)
+    //     JSDOM.fromURL("http://es.ninemanga.com" + images[indice].url, {}).then(dom => {
+    //         let img = {
+    //             src: dom.window.document.getElementsByClassName('manga_pic')[0].src,
+    //             id: indice
+    //         }
+    //         imagesResponse.push(img)
+    //         indice++;
+    //         if (indice < images.length) {
+    //             getAllImages(images, res, indice, imagesResponse)
+    //         }else{
+    //             res.send(imagesResponse)
+    //         } 
+    //     });
+    // }
+    app.post('/getImagesRoute', (req, res) => {
+
+        JSDOM.fromURL("http://es.ninemanga.com" + req.body.url, {}).then(dom => {
             let img = {
-                src: dom.window.document.getElementsByClassName('manga_pic')[0].src,
-                id: indice
-            }
-            imagesResponse.push(img)
-            indice++;
-            if (indice < images.length) {
-                getAllImages(images, res, indice, imagesResponse)
-            }else{
-                res.send(imagesResponse)
+                src: dom.window.document.getElementsByClassName('manga_pic')[0].src, 
             } 
+            res.send(img) 
         });
-    }
+
+    })
+
     app.post('/getImages', (req, res) => {
 
         curl.get(req.body.uri, null, (err, resp, body) => {
@@ -31,12 +42,9 @@ module.exports = (app) => {
                 }, (err, result) => {
 
                 });
-                promise.done((result) => {
-                     console.log(result.data)
-                    getAllImages(result.data, res, 0, [])
-                    //  res.send(result)
-                });
-                //res.send([])
+                promise.done((result) => { 
+                    res.send(result.data)  
+                }); 
             }
             else {
                 console.log("error while fetching url");
