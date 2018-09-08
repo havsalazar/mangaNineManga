@@ -10,7 +10,7 @@ module.exports = (app) => {
         }
     };
     app.post('/getlistCaps', (req, res) => {  
-        curl.get(req.body.uri, null, (err, resp, body) => {
+        curl.get(req.body.uri+'?waring=1', null, (err, resp, body) => {
             if (resp.statusCode == 200) {
                 var promise = htmlToJson.parse(body, {
                     'caps': ['a.chapter_list_a', ($a) => { 

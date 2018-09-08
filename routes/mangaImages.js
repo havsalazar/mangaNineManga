@@ -25,6 +25,8 @@ module.exports = (app) => {
         JSDOM.fromURL("http://es.ninemanga.com" + req.body.url, {}).then(dom => {
             let img = {
                 src: dom.window.document.getElementsByClassName('manga_pic')[0].src, 
+                id:req.body.id,
+                page:req.body.page
             } 
             res.send(img) 
         });
