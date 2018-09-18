@@ -29,6 +29,8 @@ module.exports = (app) => {
                 page:req.body.page
             } 
             res.send(img) 
+        }).catch(err=>{
+            res.status(400).send("error loading")
         });
 
     })
@@ -49,6 +51,7 @@ module.exports = (app) => {
                 }); 
             }
             else {
+                res.status(400).send("error loading")
                 console.log("error while fetching url");
             }
         });

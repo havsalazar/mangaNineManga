@@ -9,7 +9,7 @@ module.exports = (app) => {
             if (resp.statusCode == 200) {
                 var promise = htmlToJson.batch(body, {
                     sections: htmlToJson.createParser(['.bookintro', {
-                        'tags': [`body > div.mainbox > div > div.bookintro > ul > li:nth-child(3) a` , ($a) => {
+                        'tags': [`body > div.mainbox > div > div.bookintro > ul > li[itemprop="genre"] a` , ($a) => {
                             return $a.text();
                          }],
                         // ,body > div.mainbox > div > div.bookintro > ul > li:nth-child(3)
@@ -48,6 +48,7 @@ module.exports = (app) => {
                 })
             }
             else {
+                res.status(400).send("error loading")
                 console.log("error while fetching url");
             }
         });
