@@ -5,7 +5,8 @@ const bodyParser = require('body-parser');
 const htmlToJson = require('html-to-json')
 const curl = require("curl");
 app.use(cors())
-
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+    ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0' ;
 // app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.use( (req, res, next)=> {
@@ -22,6 +23,6 @@ require('./routes/mangaDetail')(app)
 require('./routes/capList')(app)
 require('./routes/mangaImages')(app)
 
-app.listen(3012, () => {
+app.listen(port,ip, () => {
     console.log('running');
 });
