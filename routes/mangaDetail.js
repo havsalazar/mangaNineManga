@@ -10,7 +10,7 @@ module.exports = (app) => {
                 var promise = htmlToJson.batch(body, {
                     sections: htmlToJson.createParser(['.bookintro', {
                         'tags': [`body > div.mainbox > div > div.bookintro > ul > li[itemprop="genre"] a` , ($a) => {
-                            return $a.text();
+                            return {url: $a.attr("href") ,name:$a.text()}
                          }],
                         // ,body > div.mainbox > div > div.bookintro > ul > li:nth-child(3)
                         "titulo": ($office) => {
